@@ -1,10 +1,18 @@
 const operands = document.getElementsByClassName("operand");
 const operators = document.getElementsByClassName("operator");
 const equal = document.getElementById("equal");
+const display = document.getElementById("display");
 let flag = true;
 let first_value = ""
 let second_value = ""
 let symbol = "";
+
+// Function to update the display
+function updateDisplay() {
+    let expression = first_value + symbol + second_value;
+    display.innerText = expression || "0"; // Show "0" if no input yet
+}
+
 for (let i = 0; i < operands.length; i++) {
     operands[i].addEventListener("click", function () {
         const value = operands[i].innerText;
@@ -18,6 +26,7 @@ for (let i = 0; i < operands.length; i++) {
             first_value += value;
             console.log(first_value, "first_value");
         }
+        updateDisplay(); // Update the display with the current expression
     });
 }
 
@@ -27,6 +36,7 @@ for (let i = 0; i < operators.length; i++) {
         symbol = operators[i].innerText;
         console.log(symbol);
         flag = false;
+        updateDisplay(); // Update the display with the current expression
     });
 }
 
@@ -57,7 +67,8 @@ equal.addEventListener("click", function () {
 
     // Display the result in the console or update a display element on your page
     console.log(answer, "answer");
-
+    // Display the result on the page
+    display.innerText = answer;
     // Optionally, reset the variables for the next calculation
     first_value = '';
     second_value = '';
